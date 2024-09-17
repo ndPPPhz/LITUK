@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Question</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .correct {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body class="container mt-5">
+    <h1 class="text-center mb-4">Random Question</h1>
+    <form action="/answer" method="post">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">{{ question }}</p>
+                <ul class="list-group">
+                    {% for option in options %}
+                        <li class="list-group-item" id="option{{ loop.index }}">
+                            {{ option }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <input type="hidden" id="correct_answer_index" value="{{ correct_answer_index }}">
+                <button type="submit" class="btn btn-primary mt-3 mr-2">Next Question</button>
+                <button type="button" class="btn btn-success mt-3" onclick="showCorrectAnswer()">Show Correct Answer</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        var correctAnswerIndex = document.getElementById('correct_answer_index').value;
+        var correctAnswerShown = false;
+
+        function showCorrectAnswer() {
+            var optionElements = document.querySelectorAll('li');
+            for (var i = 0; i < optionElements.length; i++) {
+                if (i === parseInt(correctAnswerIndex)) {
+                    optionElements[i].classList.add('correct');
+                }
+            }
+            correctAnswerShown = true;
+        }
+
+        // Add event listener for space key press
+        document.addEventListener('keydown', function(event) {
+            if (event.key === ' ') {
+                if (correctAnswerShown) {
+                    var submitButton = document.querySelector('button[type="submit"]');
+                    submitButton.click();
+                } else {
+                    showCorrectAnswer();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
