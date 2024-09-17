@@ -1,0 +1,3 @@
+- Install Flask via `pip install Flask`
+- Run `python3 app.py` (if using Python3)
+- You can then access the web application by opening a web browser and navigating to the address `http://127.0.0.1:5000/` or `http://localhost:5000/`
