@@ -29,4 +29,4 @@ def answer():
     return render_template('index.html', question=question, options=options, correct_answer_index=correct_answer_index)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(ssl_context='adhoc', debug=True)
